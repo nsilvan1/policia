@@ -1,0 +1,15 @@
+/* style.css */
+
+/* Geral */
+body {
+    padding-top: 56px;
+}
+
+/* Navbar */
+.navbar-brand {
+    font-weight: bold;
+}
+
+.nav-link {
+    font-size: 1.1em;
+}
