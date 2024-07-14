@@ -31,7 +31,7 @@ def create_admin_user():
             'ultima_promocao': 'N/A',
             'username': 'admin',
             'password': generate_password_hash('admin123'),
-            'aprovado': True
+            'active': True
         }
         mongo.db.policial.insert_one(admin_user)
 
@@ -44,6 +44,26 @@ def index():
     if 'username' in session:
         return redirect(url_for('dashboard'))
     return redirect(url_for('login'))
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        user = mongo.db.policial.find_one({'username': username})
+        
+        if user:
+            if check_password_hash(user['password'], password):
+                if user['active']:
+                    session['username'] = username
+                    return redirect(url_for('dashboard'))
+                else:
+                    flash('Usuário inativo.', 'error')
+            else:
+                flash('Senha incorreta.', 'error')
+        else:
+            flash('Usuário não encontrado.', 'error')
+    return render_template('login.html')
 
 @app.route('/dashboard')
 def dashboard():

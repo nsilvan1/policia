@@ -2,7 +2,7 @@
 from flask_pymongo import PyMongo
 
 class Policial:
-    def __init__(self, passport, name, cargo, unidade, transgressao, ultima_promocao, username, password, aprovado=False):
+    def __init__(self, passport, name, cargo, unidade, transgressao, ultima_promocao, username, password, active=False):
         self.passport = passport
         self.name = name
         self.cargo = cargo
@@ -11,7 +11,7 @@ class Policial:
         self.ultima_promocao = ultima_promocao
         self.username = username
         self.password = password
-        self.aprovado = aprovado
+        self.active = active
 
 class Curso:
     def __init__(self, nome, descricao, instrutor):
